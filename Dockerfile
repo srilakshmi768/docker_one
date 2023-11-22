@@ -1,2 +1,2 @@
 FROM amazoncorrentto:11
-LABEL name= "naveen"
+LABEL author= "sriveen"
