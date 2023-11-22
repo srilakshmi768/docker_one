@@ -1,4 +1,2 @@
-FROM debian
-RUN apt update
-ADD test.txt /
-CMD ["echo","Hello"]
+FROM amazoncorrentto:11
+LABEL name= "naveen"
