@@ -4,6 +4,7 @@ LABEL author="khaja" organization="qt" project="learning"
 ARG user=nopcommerce
 ARG DOWNLOAD_URL=https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.2/nopCommerce_4.60.2_NoSource_linux_x64.zip
 ARG HOME_DIR=/nop
+RUN apt update && apt install unzip -y
 RUN useradd -d "$HOME_DIR" -s /bin/bash -m ${user}
 USER ${user}
 WORKDIR ${HOME_DIR}
