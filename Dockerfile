@@ -1,7 +1,7 @@
 FROM openjdk:11
 LABEL author="sriveen"
 ARG USER="petclinic"
-ADD DOWNLOAD_URL=https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar 
+ARG DOWNLOAD_URL=https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar 
 ARG homedir="/petclinic"
 ENV TEST=hello
 RUN adduser -h ${homedir} -s /bin/sh -D ${USER} 
