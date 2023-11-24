@@ -13,3 +13,4 @@ RUN unzip ${HOME_DIR}/nopCommerce_4.60.2_NoSource_linux_x64.zip && \
     mkdir ${HOME_DIR}/bin && mkdir ${HOME_DIR}/logs
 EXPOSE 5000
 ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
+CMD [ "dotnet", "Nop.Web.dll"]
