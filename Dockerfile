@@ -5,7 +5,7 @@ ARG user=nopcommerce
 ARG DOWNLOAD_URL=https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.2/nopCommerce_4.60.2_NoSource_linux_x64.zip
 ARG HOME_DIR=/nop
 RUN apt update && apt install unzip -y
-RUN useradd -d "$HOME_DIR" -s /bin/bash -m ${user}
+RUN useradd -d "$HOME_DIR" -m -s /bin/bash ${user}
 USER ${user}
 WORKDIR ${HOME_DIR}
 ADD --chown=${user} ${DOWNLOAD_URL} ${HOME_DIR}/nopCommerce_4.60.2_NoSource_linux_x64.zip
