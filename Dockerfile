@@ -1,8 +1,10 @@
 
 
 
-FROM openjdk:11
+FROM ubuntu:focal
 LABEL name="Naveen"
+RUN apt update
+RUN apt install openjdk-11-jdk -y
 ADD https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar /spring-petclinic-2.4.2.jar 
 EXPOSE 8080
 CMD ["java" , "-jar" ,"spring-petclinic-2.4.2.jar "]
