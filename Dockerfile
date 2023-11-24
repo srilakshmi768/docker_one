@@ -1,4 +1,4 @@
-FROM amazoncorretto:11
+FROM openjdk:11
 LABEL author="sriveen"
 ARG username="petclinic"
 ARG homedir="/petclinic"
