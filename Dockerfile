@@ -1,6 +1,6 @@
 FROM maven:3-amazoncorretto-17 AS builder
 ADD https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar /spring-petclinic-2.4.2.jar
-RUN cd /petclinic && mvn package
+RUN cd /petclinic && mvn clean package
 
 
 FROM amazoncorretto:17-alpine3.17
