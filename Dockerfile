@@ -1,19 +1,19 @@
-FROM alpine:3 AS downloader
-ARG DOWNLOAD_LOCATION="https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.4/nopCommerce_4.60.4_NoSource_linux_x64.zip"
-ADD ${DOWNLOAD_LOCATION} /nopCommerce/nopCommerce_4.60.4_NoSource_linux_x64.zip
-RUN apk update && \
-    apk add unzip && \
-    cd /nopCommerce && \
-    unzip nopCommerce_4.60.4_NoSource_linux_x64.zip && mkdir bin logs \
-    && rm nopCommerce_4.60.4_NoSource_linux_x64.zip
+FROM maven:3-amazoncorretto-17 AS builder
+COPY . /spring-petclinic
+RUN  cd /spring-petclinic && mvn package
 
-FROM mcr.microsoft.com/dotnet/runtime:7.0
-LABEL author="khaja" 
-EXPOSE 5000
-COPY --from=downloader /nopCommerce /nopCommerce
-ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
-EXPOSE 5000
-WORKDIR /nopCommerce
-CMD ["dotnet", "Nop.Web.dll"]
+
+FROM amazoncorretto:17-alpine3.17
+LABEL author="khaja"
+LABEL organization="learningthoughts"
+ARG USERNAME='petclinic'
+ARG HOMEDIR='/petclinic'
+ENV TEST=hello
+RUN adduser -h ${HOMEDIR} -s /bin/sh -D ${USERNAME}
+USER ${USERNAME}
+WORKDIR ${HOMEDIR}
+COPY --from=builder --chown=${USERNAME}:${USERNAME} /spring-petclinic/target/spring-petclinic-3.1.0-SNAPSHOT.jar "${HOMEDIR}/spring-petclinic-3.1.0-SNAPSHOT.jar"
+EXPOSE 8080
+CMD ["java", "-jar", "spring-petclinic-3.1.0-SNAPSHOT.jar"]
 
 
