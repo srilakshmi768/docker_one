@@ -1,5 +1,5 @@
 FROM maven:3-amazoncorretto-17 AS builder
-COPY . /spring-petclinic
+ADD https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-3.1.0-SNAPSHOT.jar /spring-petclinic-3.1.0-SNAPSHOT.jar
 RUN  cd /spring-petclinic && mvn package
 
 
