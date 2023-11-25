@@ -1,6 +1,6 @@
 FROM maven:3-amazoncorretto-17 AS builder
 COPY . /spring-petclinic
-RUN  cd /petclinic && mvn package
+RUN  mkdir /petclinic && mvn package
 
 
 FROM amazoncorretto:17-alpine3.17
