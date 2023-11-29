@@ -12,6 +12,6 @@ ENV TEST=hello
 RUN adduser -h ${HOMEDIR} -s /bin/sh -D ${USERNAME}
 USER ${USERNAME}
 WORKDIR ${HOMEDIR}
-COPY --from=builder --chown=${USERNAME}:${USERNAME} /spring-petclinic/target/spring-petclinic-3.1.0-SNAPSHOT.jar "${HOMEDIR}/spring-petclinic-3.1.0-SNAPSHOT.jar"
+COPY --from=builder --chown=${USERNAME}:${USERNAME} /spring-petclinic/target/spring-petclinic-2.4.2.jar "${HOMEDIR}/spring-petclinic-2.4.2.jar"
 EXPOSE 8080
-CMD ["java", "-jar", "spring-petclinic-3.1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "spring-petclinic-2.4.2.jar"]
