@@ -1,6 +1,6 @@
 FROM maven:3-amazoncorretto-17 AS builder
-ADD https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar /spring-petclinic-2.4.2.jar
-
+COPY git clone https://github.com/spring-projects/spring-petclinic.git /spring-petclinic
+RUN  cd /spring-petclinic && mvn package
 
 
 FROM amazoncorretto:17-alpine3.17
@@ -12,7 +12,6 @@ ENV TEST=hello
 RUN adduser -h ${HOMEDIR} -s /bin/sh -D ${USERNAME}
 USER ${USERNAME}
 WORKDIR ${HOMEDIR}
-COPY --from=builder --chown=${USERNAME}:${USERNAME} "${HOMEDIR}/spring-petclinic-2.4.2.jar"
+COPY --from=builder --chown=${USERNAME}:${USERNAME} /spring-petclinic/target/spring-petclinic-3.1.0-SNAPSHOT.jar "${HOMEDIR}/spring-petclinic-3.1.0-SNAPSHOT.jar"
 EXPOSE 8080
-CMD ["java", "-jar", "spring-petclinic-2.4.2.jar"]
-
+CMD ["java", "-jar", "spring-petclinic-3.1.0-SNAPSHOT.jar"]
