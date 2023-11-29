@@ -1,17 +1,13 @@
-FROM maven:3-amazoncorretto-17 AS builder
-COPY . /spring-petclinic
-RUN  cd /petclinic && mvn package
 
-
-FROM amazoncorretto:17-alpine3.17
-LABEL author="khaja"
-LABEL organization="learningthoughts"
-ARG USERNAME='petclinic'
-ARG HOMEDIR='/petclinic'
-ENV TEST=hello
-RUN adduser -h ${HOMEDIR} -s /bin/sh -D ${USERNAME}
-USER ${USERNAME}
-WORKDIR ${HOMEDIR}
-COPY --from=builder --chown=${USERNAME}:${USERNAME} /spring-petclinic/target/spring-petclinic-2.4.2.jar "${HOMEDIR}/spring-petclinic-2.4.2.jar"
+FROM amazoncorretto:11-alpine3.17
+LABEL author="sriveen"
+ARG DOWNLOAD_LOCATION='https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar'
+ARG username='petclinic'
+ARG homedir='/petclinic'
+ENV NAME=hyd
+RUN adduser -h ${homedir} -s /bin/sh -D ${username}
+USER ${username}
+WORKDIR ${homedir}
+ADD --chown=${username}:${username} ${DOWNLOAD_LOCATION} "${homedir}/spring-petclinic-2.4.2.jar"
 EXPOSE 8080
-CMD ["java", "-jar", "spring-petclinic-2.4.2.jar"]
+CMD ["java" ,"-jar" ,"spring-petclinic-2.4.2.jar"]
