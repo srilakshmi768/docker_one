@@ -1,5 +1,5 @@
 FROM maven:3-amazoncorretto-17 AS builder
-COPY git clone https://github.com/spring-projects/spring-petclinic.git /spring-petclinic
+COPY . /spring-petclinic
 RUN  cd /spring-petclinic && mvn package
 
 
