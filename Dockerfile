@@ -1,5 +1,5 @@
 
-FROM maven:3.8.6-openjdk-17 as build
+FROM maven:3.8.5-openjdk-17 as build
 RUN git clone https://github.com/spring-projects/spring-petclinic.git 
  RUN cd spring-petclinic && mvn package
  
