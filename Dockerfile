@@ -1,7 +1,7 @@
 
 FROM maven:3.8.5-openjdk-17 as build
 RUN git clone https://github.com/spring-projects/spring-petclinic.git 
- RUN cd spring-petclinic && mvn package
+ RUN cd spring-petclinic && mvn clean package
  
 # jar location /spring-petclinic/target/spring-petclinic-2.7.3.jar
 
