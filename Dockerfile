@@ -1,13 +1,13 @@
 
-FROM amazoncorretto:11-alpine3.17
-LABEL author="sriveen"
-ARG DOWNLOAD_LOCATION='https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar'
-ARG username='petclinic'
-ARG homedir='/petclinic'
-ENV NAME=hyd
-RUN adduser -h ${homedir} -s /bin/sh -D ${username}
-USER ${username}
-WORKDIR ${homedir}
-ADD --chown=${username}:${username} ${DOWNLOAD_LOCATION} "${homedir}/spring-petclinic-2.4.2.jar"
+FROM maven:3.8.6-openjdk-11 as build
+RUN git clone https://github.com/spring-projects/spring-petclinic.git && \
+    cd spring-petclinic && \
+    mvn package
+# jar location /spring-petclinic/target/spring-petclinic-2.7.3.jar
+
+FROM openjdk:11
+LABEL project="petclinic"
+LABEL author="devops team"
 EXPOSE 8080
-CMD ["java" ,"-jar" ,"spring-petclinic-2.4.2.jar"]
+COPY --from=build /spring-petclinic/target/spring-petclinic-2.7.3.jar /spring-petclinic-2.7.3.jar
+CMD ["java", "-jar", "/spring-petclinic-2.7.3.jar"]
